@@ -53,23 +53,24 @@ function formateDate(flag, mon = 1) {
 const createCustomer = async ({ assignedBy, customerId, plan, details }) => {
     try {
         let findPlan = await planModel.findById({ _id: plan });
-        let assignedByPlan = await userModel.findById({ _id: assignedBy });
+        // let assignedByPlan = await userModel.findById({ _id: assignedBy });
 
         let startReturn = formateDate("start");
         let expireReturn = formateDate("expire", findPlan.months);
 
+        let attachPlan = { ...findPlan };
         let customer = new customerModel({
             startDate: startReturn,
             expiryDate: expireReturn,
             assignedBy,
             customerId,
-            plan,
+            plan: attachPlan,
             details,
         });
         await customer.save();
 
         let historyGet = await historyModel.find();
-        console.log('historyGet:', historyGet)
+        console.log("historyGet:", historyGet);
 
         return {
             data: customer,

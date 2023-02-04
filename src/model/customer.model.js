@@ -19,12 +19,12 @@ const customerSchema = new Schema({
         ref: "user",
         required: true,
     },
-    plan:
-    {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "plan",
-        required: true,
-    },
+    plan: { type: Object },
+    // {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: "plan",
+    //     required: true,
+    // },
     details: {
         type: Array,
         required: true,

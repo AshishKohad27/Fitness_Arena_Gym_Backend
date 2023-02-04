@@ -2,6 +2,7 @@ const express = require("express");
 const userModel = require("../model/user.model");
 const jwt = require("jsonwebtoken");
 const argon2 = require("argon2");
+const { getCustomerByQuery } = require("../controller/user.controller");
 
 const userRoutes = express.Router();
 
@@ -161,5 +162,16 @@ userRoutes.get("/allcustomer", authMiddleWare, async (req, res) => {
     }
 })
 
+
+userRoutes.post("/query", authMiddleWare, async (req, res) => {
+    const { query } = req.body;
+    console.log('query:', query);
+    const { data, flag, message, desc } = await getCustomerByQuery({ query });
+    if (flag) {
+        return res.status(201).send({ data, message, desc });
+    } else {
+        return res.status(401).send({ data, message, desc });
+    }
+})
 
 module.exports = userRoutes;
