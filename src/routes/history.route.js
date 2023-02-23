@@ -14,7 +14,6 @@ const initial = [
 
 historyRoute.post("/", async (req, res) => {
     const customerFind = await customerModel({ _id: customerId });
-
     customerFind.AllPlansOfCustomerId.push({
         
     })

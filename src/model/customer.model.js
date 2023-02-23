@@ -20,11 +20,11 @@ const customerSchema = new Schema({
         required: true,
     },
     plan: { type: Object },
-    // {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: "plan",
-    //     required: true,
-    // },
+    historyLength: { type: String },
+    history: {
+        type: Array,
+        required: true,
+    },
     details: {
         type: Array,
         required: true,

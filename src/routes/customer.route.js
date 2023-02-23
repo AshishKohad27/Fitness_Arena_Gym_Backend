@@ -5,6 +5,8 @@ const {
     getCustomer,
     updateCustomerPlan,
     getHistory,
+    getSingleCustomer,
+    checkingExpire,
 } = require("../controller/customer.controller");
 const customerRoutes = express.Router();
 
@@ -45,13 +47,14 @@ const authMiddleware = async (req, res, next) => {
 };
 
 customerRoutes.post("/", authMiddleware, async (req, res) => {
-    const { customerId, plan, details } = req.body;
+    const { customerId, plan, history, _id } = req.body;
     // console.log('customerId, plan, details:', customerId, plan, details)
     const { data, flag, message, desc } = await createCustomer({
         assignedBy: req.userId,
         customerId,
         plan,
-        details,
+        history,
+        _id,
     });
     if (flag) {
         return res.status(201).send({ data, message, desc });
@@ -95,4 +98,28 @@ customerRoutes.post("/history", authMiddleware, async (req, res) => {
         return res.status(401).send({ data, message, desc });
     }
 });
+
+customerRoutes.get("/checkingExpiry", authMiddleware, async (req, res) => {
+    console.log("hey")
+    const { data, flag, message, desc } = await checkingExpire();
+    if (flag) {
+        return res.status(201).send({ data, message, desc });
+    } else {
+        return res.status(401).send({ data, message, desc });
+    }
+})
+
+customerRoutes.get("/:id", authMiddleware, async (req, res) => {
+    const customerId = req.params.id;
+
+    console.log('customerId:', customerId)
+    const { data, flag, message, desc } = await getSingleCustomer({ customerId });
+    if (flag) {
+        return res.status(201).send({ data, message, desc });
+    } else {
+        return res.status(401).send({ data, message, desc });
+    }
+});
+
+
 module.exports = customerRoutes;
