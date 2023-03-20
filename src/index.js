@@ -2,6 +2,7 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
+const compression = require('compression');
 
 //2. routes
 const { userRoutes, planRoutes, customerRoutes } = require("./routes/allRoutes");
@@ -17,6 +18,7 @@ const app = express();
 
 //6.use
 app.use(express.json());
+app.use(compression());
 app.use(cors());
 app.use("/user", userRoutes);
 app.use("/plan", planRoutes);
