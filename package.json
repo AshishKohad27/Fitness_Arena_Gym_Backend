@@ -3,11 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "src/index.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/AshishKohad27/Fitness_Arena_Gym.git"
+    "start": "node src/index.js"
   },
   "keywords": [],
   "author": "",
@@ -18,9 +14,7 @@
     "express": "^4.18.2",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.8.1",
-    "nodemon": "^2.0.20"
-  },
-  "devDependencies": {
+    "nodemon": "^2.0.20",
     "dotenv": "^16.0.3"
   }
 }
